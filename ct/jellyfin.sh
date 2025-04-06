@@ -20,11 +20,12 @@ EOF
 header_info
 echo -e "Loading..."
 APP="Jellyfin"
-var_disk="8"
+var_disk="16"
 var_cpu="2"
 var_ram="2048"
 var_os="ubuntu"
 var_version="22.04"
+var_
 variables
 color
 catch_errors
@@ -38,8 +39,8 @@ function default_settings() {
   CORE_COUNT="$var_cpu"
   RAM_SIZE="$var_ram"
   BRG="vmbr0"
-  NET="dhcp"
-  GATE=""
+  NET="192.168.0.${CT_ID}"
+  GATE="192.168.0.1"
   APT_CACHER=""
   APT_CACHER_IP=""
   DISABLEIP6="no"
@@ -60,6 +61,10 @@ msg_info "Updating ${APP} LXC"
 apt-get update &>/dev/null
 apt-get -y upgrade &>/dev/null
 msg_ok "Updated ${APP} LXC"
+apt install -y avahi-daemon
+systemctl enable avahi-daemon
+systemctl start avahi-daemon
+msg_info "Set hostname to jellyfin.local"
 exit
 }
 
