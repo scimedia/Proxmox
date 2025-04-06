@@ -63,7 +63,6 @@ msg_ok "Updated ${APP} LXC"
 apt install -y avahi-daemon
 systemctl enable avahi-daemon
 systemctl start avahi-daemon
-msg_info "Set hostname to jellyfin.local"
 exit
 }
 
